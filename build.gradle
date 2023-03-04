@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     // Annotations
-    compileOnly 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
     compileOnly 'org.jetbrains:annotations:22.0.0'
 
     // Apis
