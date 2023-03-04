@@ -8,7 +8,7 @@ public abstract class KnockBackFFAAPI {
     public static KnockBackFFAAPI getInstance() {
         return instance;
     }
-    
+
 
     protected static void setInstance(KnockBackFFAAPI instance) {
         KnockBackFFAAPI.instance = instance;
