@@ -3,8 +3,8 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
-def id = "TemplatePlugin"
-def group = 'games.negative.template'
+def id = "KnockbackFFA"
+def group = 'games.negative.knockbackffa'
 def version = '1.0.0-SNAPSHOT'
 repositories {
     mavenCentral()
