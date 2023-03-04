@@ -24,6 +24,7 @@
 
 package games.negative.knockbackffa.api;
 
+import games.negative.knockbackffa.api.exception.ProfileExistsException;
 import games.negative.knockbackffa.api.model.Profile;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -34,6 +35,8 @@ import java.util.Collection;
 import java.util.UUID;
 
 public interface ProfileManager {
+
+    Profile createProfile(@NotNull UUID uuid) throws ProfileExistsException;
 
     @Nullable
     Profile getProfile(@NotNull UUID uuid);
