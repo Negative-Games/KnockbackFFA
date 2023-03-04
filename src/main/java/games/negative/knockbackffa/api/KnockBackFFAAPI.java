@@ -1,12 +1,16 @@
 package games.negative.knockbackffa.api;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-
 public abstract class KnockBackFFAAPI {
 
-    @Getter
-    @Setter(AccessLevel.PROTECTED)
     private static KnockBackFFAAPI instance;
+
+
+    public static KnockBackFFAAPI getInstance() {
+        return instance;
+    }
+    
+
+    protected static void setInstance(KnockBackFFAAPI instance) {
+        KnockBackFFAAPI.instance = instance;
+    }
 }
