@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package games.negative.template;
+package games.negative.knockbackffa;
 
 import games.negative.framework.BasePlugin;
 
-public final class TemplatePlugin extends BasePlugin {
+public final class KnockBackFFA extends BasePlugin {
 
     @Override
     public void onEnable() {
