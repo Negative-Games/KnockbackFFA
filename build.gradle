@@ -21,7 +21,7 @@ repositories {
 dependencies {
     // Annotations
     compileOnly 'org.projectlombok:lombok:1.18.26'
-    compileOnly 'org.jetbrains:annotations:22.0.0'
+    compileOnly 'org.jetbrains:annotations:24.0.1'
 
     // Apis
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
