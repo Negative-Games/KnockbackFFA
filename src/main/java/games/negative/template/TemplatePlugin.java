@@ -39,5 +39,5 @@ public final class TemplatePlugin extends BasePlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
-    
+
 }
