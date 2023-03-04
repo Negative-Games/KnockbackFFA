@@ -25,13 +25,18 @@
 package games.negative.knockbackffa;
 
 import games.negative.framework.BasePlugin;
+import games.negative.knockbackffa.api.KnockBackFFAAPI;
+import games.negative.knockbackffa.core.provider.KnockBackFFAAPIProvider;
 
 public final class KnockBackFFA extends BasePlugin {
+
+    private KnockBackFFAAPI api;
 
     @Override
     public void onEnable() {
         super.onEnable();
         // Plugin startup logic
+        this.api = new KnockBackFFAAPIProvider();
 
     }
 
