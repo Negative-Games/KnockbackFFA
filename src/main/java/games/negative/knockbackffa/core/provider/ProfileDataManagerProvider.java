@@ -24,6 +24,7 @@
 
 package games.negative.knockbackffa.core.provider;
 
+import com.google.common.collect.Lists;
 import games.negative.framework.db.SQLDatabase;
 import games.negative.framework.db.builder.DatabaseBuilder;
 import games.negative.framework.db.builder.sqlite.SQLiteDatabaseBuilder;
@@ -31,13 +32,16 @@ import games.negative.framework.db.builder.sqlite.SQLiteTableBuilder;
 import games.negative.framework.db.model.SQLColumnType;
 import games.negative.knockbackffa.api.ProfileDataManager;
 import games.negative.knockbackffa.api.model.Profile;
+import games.negative.knockbackffa.core.structure.KnockBackFFAProfile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public class ProfileDataManagerProvider implements ProfileDataManager {
@@ -107,16 +111,63 @@ public class ProfileDataManagerProvider implements ProfileDataManager {
 
     @Override
     public void delete(Profile profile) {
-
+        try (PreparedStatement statement = db.statement("DELETE FROM profiles WHERE uuid = ?")) {
+            statement.setString(1, profile.getKey().toString());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Profile get(UUID uuid) {
-        return null;
+        try (PreparedStatement statement = db.statement("SELECT * FROM profiles WHERE uuid = ?")) {
+            statement.setString(1, uuid.toString());
+
+            try (ResultSet result = statement.executeQuery()) {
+                int kills = result.getInt("kills");
+                int deaths = result.getInt("deaths");
+                int killstreak = result.getInt("killstreak");
+                int highest_killstreak = result.getInt("highest_killstreak");
+
+                return new KnockBackFFAProfile(
+                        uuid,
+                        kills,
+                        deaths,
+                        killstreak,
+                        highest_killstreak
+                );
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Collection<Profile> load() {
-        return null;
+        List<UUID> toLoad = Lists.newArrayList();
+        try (PreparedStatement statement = db.statement("SELECT * FROM profiles")) {
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    toLoad.add(UUID.fromString(result.getString("uuid")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        List<Profile> profiles = Lists.newArrayList();
+        for (UUID uuid : toLoad) {
+            profiles.add(get(uuid));
+        }
+        return profiles;
     }
 }
