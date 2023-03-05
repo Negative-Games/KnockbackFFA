@@ -46,12 +46,9 @@ import java.util.UUID;
 
 public class ProfileDataManagerProvider implements ProfileDataManager {
 
-    private final JavaPlugin plugin;
     private final SQLDatabase db;
 
     public ProfileDataManagerProvider(JavaPlugin plugin) {
-        this.plugin = plugin;
-
         File file = new File(plugin.getDataFolder(), "profiles.db");
         SQLiteDatabaseBuilder builder = DatabaseBuilder.sqlite(file);
         SQLiteTableBuilder profiles = builder.withTable("profiles");
