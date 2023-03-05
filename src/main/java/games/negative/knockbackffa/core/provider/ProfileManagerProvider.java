@@ -91,4 +91,10 @@ public class ProfileManagerProvider implements ProfileManager {
     public Collection<Profile> getProfiles() {
         return profiles.values();
     }
+
+    @Override
+    public void onDisable() {
+        saveProfiles();
+        data.close();
+    }
 }

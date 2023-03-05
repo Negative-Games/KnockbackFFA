@@ -58,4 +58,6 @@ public interface ProfileManager {
     }
 
     Collection<Profile> getProfiles();
+
+    void onDisable();
 }

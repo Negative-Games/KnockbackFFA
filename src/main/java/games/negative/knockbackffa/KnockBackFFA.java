@@ -49,7 +49,7 @@ public final class KnockBackFFA extends BasePlugin {
     public void onDisable() {
         // Plugin shutdown logic
         ProfileManager profiles = api.getProfileManager();
-        profiles.saveProfiles();
+        profiles.onDisable();
     }
 
 }

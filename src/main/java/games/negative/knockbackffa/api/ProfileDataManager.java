@@ -27,7 +27,6 @@ package games.negative.knockbackffa.api;
 import games.negative.knockbackffa.api.model.Profile;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.UUID;
 
 public interface ProfileDataManager {
@@ -40,4 +39,5 @@ public interface ProfileDataManager {
 
     Collection<Profile> load();
 
+    void close();
 }
