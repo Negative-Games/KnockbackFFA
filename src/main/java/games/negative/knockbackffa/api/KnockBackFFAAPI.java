@@ -4,6 +4,7 @@ public abstract class KnockBackFFAAPI {
 
     private static KnockBackFFAAPI instance;
 
+    public abstract ProfileManager getProfileManager();
 
     public static KnockBackFFAAPI getInstance() {
         return instance;
