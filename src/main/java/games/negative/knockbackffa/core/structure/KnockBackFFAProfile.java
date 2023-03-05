@@ -37,6 +37,14 @@ public class KnockBackFFAProfile implements Profile {
     private int killStreak;
     private int bestKillStreak;
 
+    public KnockBackFFAProfile(UUID uuid, int kills, int deaths, int killStreak, int bestKillStreak) {
+        this.uuid = uuid;
+        this.kills = kills;
+        this.deaths = deaths;
+        this.killStreak = killStreak;
+        this.bestKillStreak = bestKillStreak;
+    }
+
     public KnockBackFFAProfile(UUID uuid) {
         this.uuid = uuid;
     }
