@@ -36,7 +36,7 @@ public final class KnockBackFFA extends BasePlugin {
     public void onEnable() {
         super.onEnable();
         // Plugin startup logic
-        this.api = new KnockBackFFAAPIProvider();
+        this.api = new KnockBackFFAAPIProvider(this);
 
     }
 
