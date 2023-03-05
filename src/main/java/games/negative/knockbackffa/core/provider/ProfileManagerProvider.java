@@ -25,6 +25,7 @@
 package games.negative.knockbackffa.core.provider;
 
 import com.google.common.collect.Maps;
+import games.negative.framework.util.Utils;
 import games.negative.knockbackffa.api.ProfileDataManager;
 import games.negative.knockbackffa.api.ProfileManager;
 import games.negative.knockbackffa.api.exception.ProfileExistsException;
@@ -46,6 +47,14 @@ public class ProfileManagerProvider implements ProfileManager {
     public ProfileManagerProvider(JavaPlugin plugin) {
         this.profiles = Maps.newHashMap();
         this.data = new ProfileDataManagerProvider(plugin);
+
+        // Load profiles from database
+        Collection<Profile> loaded = data.load();
+        for (Profile profile : loaded) {
+            profiles.put(profile.getKey(), profile);
+        }
+
+        plugin.getLogger().info("Loaded " + Utils.decimalFormat(loaded.size()) + " profiles.");
     }
 
 
@@ -65,11 +74,11 @@ public class ProfileManagerProvider implements ProfileManager {
 
     @Override
     public void saveProfile(@NotNull Profile profile) {
-
+        data.save(profile);
     }
 
     @Override
     public Collection<Profile> getProfiles() {
-        return null;
+        return profiles.values();
     }
 }
