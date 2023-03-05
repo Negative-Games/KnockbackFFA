@@ -31,6 +31,8 @@ import games.negative.knockbackffa.api.ProfileManager;
 import games.negative.knockbackffa.api.exception.ProfileExistsException;
 import games.negative.knockbackffa.api.model.Profile;
 import games.negative.knockbackffa.core.structure.KnockBackFFAProfile;
+import games.negative.knockbackffa.task.ProfileAutoSaveTask;
+import games.negative.knockbackffa.task.ProfileManualSaveTask;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,10 +43,12 @@ import java.util.UUID;
 
 public class ProfileManagerProvider implements ProfileManager {
 
+    private final JavaPlugin plugin;
     private final Map<UUID, Profile> profiles;
     private final ProfileDataManager data;
 
     public ProfileManagerProvider(JavaPlugin plugin) {
+        this.plugin = plugin;
         this.profiles = Maps.newHashMap();
         this.data = new ProfileDataManagerProvider(plugin);
 
@@ -55,6 +59,9 @@ public class ProfileManagerProvider implements ProfileManager {
         }
 
         plugin.getLogger().info("Loaded " + Utils.decimalFormat(loaded.size()) + " profiles.");
+
+        ProfileAutoSaveTask task = new ProfileAutoSaveTask(this);
+        task.runTaskTimerAsynchronously(plugin, 20 * 30, 20 * 60);
     }
 
 
@@ -64,7 +71,10 @@ public class ProfileManagerProvider implements ProfileManager {
             throw new ProfileExistsException("Profile already exists for UUID: " + uuid.toString());
 
         Profile profile = new KnockBackFFAProfile(uuid);
-        return null;
+        new ProfileManualSaveTask(this, profile).runTaskAsynchronously(plugin);
+
+        profiles.put(uuid, profile);
+        return profile;
     }
 
     @Override
