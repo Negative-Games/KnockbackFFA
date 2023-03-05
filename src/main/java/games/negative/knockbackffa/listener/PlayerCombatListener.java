@@ -22,36 +22,24 @@
  * SOFTWARE.
  */
 
-package games.negative.knockbackffa;
+package games.negative.knockbackffa.listener;
 
-import games.negative.framework.BasePlugin;
-import games.negative.knockbackffa.api.KnockBackFFAAPI;
-import games.negative.knockbackffa.api.ProfileManager;
-import games.negative.knockbackffa.core.provider.KnockBackFFAAPIProvider;
-import games.negative.knockbackffa.listener.PlayerCombatListener;
-import games.negative.knockbackffa.listener.ProfileListener;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public final class KnockBackFFA extends BasePlugin {
+public class PlayerCombatListener implements Listener {
 
-    private KnockBackFFAAPI api;
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event) {
+        if (!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player))
+            return;
 
-    @Override
-    public void onEnable() {
-        super.onEnable();
-        // Plugin startup logic
-        this.api = new KnockBackFFAAPIProvider(this);
+        //TODO: Check to see if the players are in an actual Arena
+        // if they are then we want to set the damage to 0
 
-        registerListeners(
-                new ProfileListener(this, api.getProfileManager()),
-                new PlayerCombatListener()
-        );
+        event.setDamage(0);
     }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-        ProfileManager profiles = api.getProfileManager();
-        profiles.onDisable();
-    }
-
 }
