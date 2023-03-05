@@ -28,6 +28,7 @@ import games.negative.framework.BasePlugin;
 import games.negative.knockbackffa.api.KnockBackFFAAPI;
 import games.negative.knockbackffa.api.ProfileManager;
 import games.negative.knockbackffa.core.provider.KnockBackFFAAPIProvider;
+import games.negative.knockbackffa.listener.ProfileListener;
 
 public final class KnockBackFFA extends BasePlugin {
 
@@ -39,6 +40,9 @@ public final class KnockBackFFA extends BasePlugin {
         // Plugin startup logic
         this.api = new KnockBackFFAAPIProvider(this);
 
+        registerListeners(
+                new ProfileListener(this, api.getProfileManager())
+        );
     }
 
     @Override
