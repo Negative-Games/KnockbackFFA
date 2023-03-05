@@ -24,23 +24,15 @@
 
 package games.negative.knockbackffa.command;
 
-import games.negative.framework.command.Command;
+import games.negative.framework.command.SubCommand;
 import games.negative.framework.command.annotation.CommandInfo;
-import games.negative.knockbackffa.command.arena.CmdArena;
 import org.bukkit.command.CommandSender;
 
 @CommandInfo(
-        name = "kbffa"
+        name = "join",
+        playerOnly = true
 )
-public class CommandKnockBackFFA extends Command {
-
-    public CommandKnockBackFFA() {
-        addSubCommands(
-                new CmdArena(),
-                new CmdJoin()
-        );
-    }
-
+public class CmdJoin extends SubCommand {
     @Override
     public void onCommand(CommandSender sender, String[] args) {
 
