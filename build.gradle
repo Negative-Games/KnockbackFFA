@@ -31,7 +31,7 @@ dependencies {
 
     // Framework / Backend
     implementation("games.negative.framework:minecraft-framework:3.3.6")
-    implementation("games.negative.framework:database-framework:1.1.0")
+    implementation("games.negative.framework:database-framework:1.2.0")
 }
 
 def targetJavaVersion = 11
